@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class WeChatController extends Controller
 {
-    public function server(WechatRequest $request)
+    public function serve(WechatRequest $request)
     {
         $code = $request->code;
         $miniProgram = EasyWeChat::miniProgram(); // 小程序
