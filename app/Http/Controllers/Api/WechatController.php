@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\WechatRequest;
 use Illuminate\Http\Request;
 
-class WechatController extends Controller
+class WeChatController extends Controller
 {
     public function server(WechatRequest $request)
     {
