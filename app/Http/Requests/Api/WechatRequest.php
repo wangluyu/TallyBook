@@ -27,4 +27,11 @@ class WechatRequest extends FormRequest
             'code'  =>  'required|string|max:255',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'code' => '小程序 code'
+        ];
+    }
 }
