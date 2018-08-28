@@ -19,8 +19,8 @@ $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api'
 ], function($api) {
     //微信
-    $api->any('wechat', 'WeChatController@serve')
-        ->name('api.wechat.serve');
+    $api->any('wechatlogin', 'WeChatController@login')
+        ->name('api.wechat.login');
     // 短信验证码
     $api->post('verificationCodes', 'VerificationCodesController@store')
         ->name('api.verificationCodes.store');
