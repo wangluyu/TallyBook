@@ -19,7 +19,7 @@ $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api'
 ], function($api) {
     //小程序登录
-    $api->post('wechat', 'WeChatController@serve')
+    $api->get('wechat', 'WeChatController@serve')
         ->name('api.wechat.serve');
     $api->post('wechat/authorizations', 'AuthorizationsController@wechatStore')
         ->name('api.wechat.authorizations.store');
