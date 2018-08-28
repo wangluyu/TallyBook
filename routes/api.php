@@ -18,9 +18,11 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api'
 ], function($api) {
-    //微信
-    $api->any('wechatlogin', 'WeChatController@login')
-        ->name('api.wechat.login');
+    //小程序登录
+    $api->post('wechat', 'WeChatController@serve')
+        ->name('api.wechat.serve');
+    $api->post('wechat/authorizations', 'AuthorizationsController@wechatStore')
+        ->name('api.wechat.authorizations.store');
     // 短信验证码
     $api->post('verificationCodes', 'VerificationCodesController@store')
         ->name('api.verificationCodes.store');
