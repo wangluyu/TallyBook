@@ -10,7 +10,7 @@ class WeChatController extends Controller
     public function serve(WechatRequest $request)
     {
         $code = $request->code;
-        $miniProgram = EasyWeChat::miniProgram(); // 小程序
+        $miniProgram = \EasyWeChat::miniProgram(); // 小程序
         $result = $miniProgram->auth->session($code);
         return $this->response->array($result);
     }
