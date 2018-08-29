@@ -8,6 +8,6 @@
 return [
     'redis' => [
         'wechat_session'  =>  'wechat_session',
-        'wechat_session_expiration'    =>  2*3600,
+        'wechat_session_expiration'    =>  7200,
     ]
 ];
