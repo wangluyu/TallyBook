@@ -6,6 +6,7 @@ use App\Http\Requests\Api\WechatLoginRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
+use App\Common\AES;
 
 class AuthorizationsController extends Controller
 {
@@ -29,7 +30,7 @@ class AuthorizationsController extends Controller
                 throw new \Exception("user info error");
             }
             //加密session
-            $session_key = \AES::encrypt($user['id'].'_'.$session_key);
+            $session_key = AES::encrypt($user['id'].'_'.$session_key);
             //将session key与user_id存进redis，过期时间为2小时
             $redis_config = config('const.redis');
             $redis_key = $redis_config['wechat_session'].'_'.$user['id'];

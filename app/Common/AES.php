@@ -8,6 +8,7 @@
 /**
  * [AesSecurity aes加密，支持PHP7.1]
  */
+namespace App\Common;
 class AES
 {
     const SECRETKEY = '12f862d21d3ceafba1b88e5f22960d55';
