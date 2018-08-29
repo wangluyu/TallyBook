@@ -30,7 +30,7 @@ class AuthorizationsController extends Controller
                 throw new \Exception("user info error");
             }
             //加密session
-            $session_key = AES::encrypt($user['id'].'_'.$session_key);
+            $aes_session_key = AES::encrypt($user['id'].'_'.$session_key);
             //将session key与user_id存进redis，过期时间为2小时
             $redis_config = config('const.redis');
             $redis_key = $redis_config['wechat_session'].'_'.$user['id'];
@@ -42,7 +42,7 @@ class AuthorizationsController extends Controller
             //返回session key
             $return['result'] = $result;
             $return['user'] = $user;
-            $return['session'] = $session_key;
+            $return['session'] = $aes_session_key;
             //提交事务
             DB::commit();
         }catch (\Exception $e) {

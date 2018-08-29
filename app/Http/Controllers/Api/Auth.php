@@ -11,5 +11,8 @@ namespace App\Http\Controllers\Api;
 
 class Auth extends Controller
 {
-
+    public function __construct()
+    {
+        var_dump($_SERVER);
+    }
 }
