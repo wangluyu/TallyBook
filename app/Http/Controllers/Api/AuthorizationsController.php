@@ -16,7 +16,7 @@ class AuthorizationsController extends Controller
         $result = $miniProgram->auth->session($code);
         //如果没有openid和session key，返回错误
         if (!isset($result['openid']) || !isset($result['session_key'])) {
-            $this->response->error($result['errmsg'], 422);
+            return $this->response->error($result['errmsg'], 422);
         }
         //事务开始
         DB::beginTransaction();
@@ -39,6 +39,6 @@ class AuthorizationsController extends Controller
             DB::rollBack();
             $return = $e->getMessage();
         }
-        $this->response->array($return);
+        return $this->response->array($return);
     }
 }
