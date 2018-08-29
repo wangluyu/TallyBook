@@ -29,7 +29,7 @@ class AuthorizationsController extends Controller
             $redis_config = config('const.redis');
             $redis_key = $redis_config['wechat_session'].'_'.$session_key;
             $redis_expiration = $redis_config['wechat_session_expiration'];
-            $flag = Redis::setex($redis_key, $user['id'], $redis_expiration);
+            $flag = Redis::setnx($redis_key, $user['id'], $redis_expiration);
             if (!$flag) {
                 throw new \Exception("redis hset error:$flag");
             }
