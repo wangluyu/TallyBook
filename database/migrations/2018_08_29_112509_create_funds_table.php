@@ -13,7 +13,7 @@ class CreateFundsTable extends Migration
      */
     public function up()
     {
-        Schema::table('funds', function (Blueprint $table) {
+        Schema::create('funds', function (Blueprint $table) {
             //fund_id	款项id
             $table->increments('id');
             //book_id	账本id

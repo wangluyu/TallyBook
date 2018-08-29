@@ -13,7 +13,7 @@ class CreateAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::table('accounts', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table) {
             //account_id	账目id	int (11)
             $table->increments('id');
             //book_id	账本id	int (11)

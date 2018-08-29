@@ -13,7 +13,7 @@ class CreateTagsTable extends Migration
      */
     public function up()
     {
-        Schema::table('tags', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             //tag_id	类型id	int (11)
             $table->increments('id');
             //user_id	用户id （0为默认，所有用户均可见）	int (11)

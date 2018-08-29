@@ -13,7 +13,7 @@ class CreatePartnersTable extends Migration
      */
     public function up()
     {
-        Schema::table('partners', function (Blueprint $table) {
+        Schema::create('partners', function (Blueprint $table) {
             //partner_id	参与人id	int (11)
             $table->increments('id')->comment('参与人id');
             //book_id	账本id	int (11)

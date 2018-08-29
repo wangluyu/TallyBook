@@ -13,7 +13,7 @@ class CreateBooksTable extends Migration
      */
     public function up()
     {
-        Schema::table('books', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             //id	账本id	int (11)
             $table->increments('id');
             //book_title	账本名称	varchar (255)
