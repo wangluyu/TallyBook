@@ -9,6 +9,6 @@ class TestController extends Controller
 {
     public function test(Request $request)
     {
-        var_dump($request);
+        echo "aa";
     }
 }

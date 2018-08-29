@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Http\Requests\Api\UserRequest;
+use Illuminate\Support\Facades\DB;
 
 
 class UsersController extends Controller
