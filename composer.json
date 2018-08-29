@@ -34,7 +34,7 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Common/*"
+            "app/Common/"
         ]
     },
     "autoload-dev": {
