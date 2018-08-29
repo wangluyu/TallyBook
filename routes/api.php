@@ -26,13 +26,15 @@ $api->version('v1', [
     $api->post('verificationCodes', 'VerificationCodesController@store')
         ->name('api.verificationCodes.store');
 
+    $api->get('test', 'TestController@test')
+        ->name('api.test.test');
     //注册
     $api->post('user', 'UsersController@store')
         ->name('api.user.store');
 
     $api->group(['middleware' => ['auth.wechat']], function ($api) {
         //测试用
-        $api->get('test', 'TestController@test')
+        $api->get('authtest', 'TestController@test')
             ->name('api.test.test');
 
         // 编辑用户信息
