@@ -7,8 +7,8 @@ use App\Http\Controllers\Controller;
 
 class TestController extends Controller
 {
-    public function test()
+    public function test(Request $request)
     {
-        echo "sueecs";
+        var_dump($request);
     }
 }

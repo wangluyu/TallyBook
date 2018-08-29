@@ -22,14 +22,22 @@ $api->version('v1', [
     $api->get('wechat/authorizations', 'AuthorizationsController@wechatStore')
         ->name('api.wechat.authorizations.store');
 
-    $api->group(['middleware' => ['auth.wechat']], function ($api) {
-        $api->get('test', 'TestController@test')
-            ->name('api.test.test');
-    });
     // 短信验证码
     $api->post('verificationCodes', 'VerificationCodesController@store')
         ->name('api.verificationCodes.store');
+
     //注册
-    $api->post('users', 'UsersController@store')
-        ->name('api.users.store');
+    $api->post('user', 'UsersController@store')
+        ->name('api.user.store');
+
+    $api->group(['middleware' => ['auth.wechat']], function ($api) {
+        //测试用
+        $api->get('test', 'TestController@test')
+            ->name('api.test.test');
+
+        // 编辑用户信息
+        $api->put('user', 'UsersController@update')
+            ->name('api.user.update');
+    });
+
 });

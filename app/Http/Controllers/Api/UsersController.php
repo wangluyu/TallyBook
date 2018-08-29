@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Requests\Api\UserRequest;
 
 
@@ -11,25 +10,28 @@ class UsersController extends Controller
 {
     public function store(UserRequest $request)
     {
-        $verifyData = \Cache::get($request->verification_key);
-        if(!$verifyData) {
-            return $this->response->error('验证码已失效', 422);
-        }
-
-        if(!hash_equals($verifyData['code'], $request->verification_code)) {
-            // 返回401
-            return $this->response->errorUnauthorized('验证码错误');
-        }
-
-        $user = User::create([
-            'name'  =>  $request->name,
-            'phone' =>  $verifyData['phone'],
-            'password'  =>  bcrypt($request->password),
-        ]);
-
-        //清楚验证码缓存
-        \Cache::forget($request->verification_key);
-
         return $this->response->created();
+    }
+
+    public function update(UserRequest $request)
+    {
+        $return = ['status'=>200,'msg'=>'success','data'=>[]];
+        return $this->response->array($request);
+        //事务开始
+        DB::beginTransaction();
+        try{
+            $user_id = $request->user_id;
+            $attributes = $request->only(['name', 'email', 'phone', 'avatar', 'gender', 'city', 'province', 'country', 'language']);
+            $user = User::find($user_id);
+            $user->update($attributes);
+            //提交事务
+            DB::commit();
+        }catch (\Exception $e) {
+            //回滚
+            DB::rollBack();
+            $return['status'] = 400;
+            $return['msg'] = $e->getMessage();
+        }
+        return $this->response->array($return);
     }
 }
