@@ -31,6 +31,8 @@ class AuthorizationsController extends Controller
                 throw new \Exception("redis hset error:$flag");
             }
             //返回session key
+            $return['result'] = $result;
+            $return['user'] = $user;
             $return['session'] = $result['session_key'];
             //提交事务
             DB::commit();
