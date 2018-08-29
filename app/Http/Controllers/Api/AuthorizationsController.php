@@ -12,6 +12,7 @@ class AuthorizationsController extends Controller
 {
     public function wechatStore(WechatLoginRequest $request)
     {
+        $return = ['status'=>200,'msg'=>'success','data'=>[]];
         $code = $request->code;
         $miniProgram = \EasyWeChat::miniProgram(); // 小程序
         $result = $miniProgram->auth->session($code);
@@ -40,15 +41,14 @@ class AuthorizationsController extends Controller
                 throw new \Exception("redis hset error:$flag");
             }
             //返回session key
-            $return['result'] = $result;
-            $return['user'] = $user;
-            $return['session'] = $aes_session_key;
+            $return['data']['session'] = $aes_session_key;
             //提交事务
             DB::commit();
         }catch (\Exception $e) {
             //回滚
             DB::rollBack();
-            $return = $e->getMessage();
+            $return['status'] = 400;
+            $return['msg'] = $e->getMessage();
         }
         return $this->response->array($return);
     }
