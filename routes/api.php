@@ -19,10 +19,10 @@ $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api'
 ], function($api) {
     //小程序登录
-//    $api->get('wechat', 'WeChatController@serve')
-//        ->name('api.wechat.serve');
-    $api->get('wechat/authorizations', 'AuthorizationsController@wechatStore')
-        ->name('api.wechat.authorizations.store');
+    $api->get('wechat', 'WeChatController@serve')
+        ->name('api.wechat.serve');
+//    $api->get('wechat/authorizations', 'AuthorizationsController@wechatStore')
+//        ->name('api.wechat.authorizations.store');
     // 短信验证码
     $api->post('verificationCodes', 'VerificationCodesController@store')
         ->name('api.verificationCodes.store');
