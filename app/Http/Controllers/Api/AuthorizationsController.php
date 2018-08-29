@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Redis;
 
 class AuthorizationsController extends Controller
 {
-    public function serve(WechatLoginRequest $request)
+    public function wechatStore(WechatLoginRequest $request)
     {
         $code = $request->code;
         $miniProgram = \EasyWeChat::miniProgram(); // 小程序
