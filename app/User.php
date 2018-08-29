@@ -14,9 +14,16 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+//    protected $fillable = [
+//        'name', 'email', 'password',
+//    ];
+
+    /**
+     * 不可被批量赋值的属性。
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.

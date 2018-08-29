@@ -14,6 +14,7 @@
         "overtrue/easy-sms": "^1.1",
         "overtrue/laravel-wechat": "~4.0",
         "overtrue/wechat": "~4.0",
+        "predis/predis": "^1.1",
         "tymon/jwt-auth": "1.0.0-rc.2"
     },
     "require-dev": {
