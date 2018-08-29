@@ -21,7 +21,7 @@ $api->version('v1', [
     //小程序登录
 //    $api->get('wechat', 'WeChatController@serve')
 //        ->name('api.wechat.serve');
-    $api->post('wechat/authorizations', 'AuthorizationsController@wechatStore')
+    $api->get('wechat/authorizations', 'AuthorizationsController@wechatStore')
         ->name('api.wechat.authorizations.store');
     // 短信验证码
     $api->post('verificationCodes', 'VerificationCodesController@store')
