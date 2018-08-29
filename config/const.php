@@ -6,5 +6,8 @@
  * Time: 上午11:43
  */
 return [
-    'wechat_session'  =>  'wechat_session'
+    'redis' => [
+        'wechat_session'  =>  'wechat_session',
+        'wechat_session_expiration'    =>  2*3600,
+    ]
 ];

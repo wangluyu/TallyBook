@@ -26,7 +26,9 @@ class AuthorizationsController extends Controller
             // 通过 openid 检索users表，如果不存在则创建
             $user = User::firstOrCreate(['open_id' => $open_id]);
             //将session key与user_id存进redis，过期时间为2小时
-            $flag = Redis::hset(config('const.wechat_session'), $session_key, $user['id']);
+            $redis_key = config('const.redis')['redis'].'_'.$session_key;
+            $redis_expiration = config('const.wechat_session_expiration');
+            $flag = Redis::setex($redis_key, $user['id'], $redis_expiration);
             if (!$flag) {
                 throw new \Exception("redis hset error:$flag");
             }
