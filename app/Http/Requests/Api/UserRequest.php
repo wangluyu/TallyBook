@@ -28,9 +28,12 @@ class UserRequest extends FormRequest
                 return [
                     'name' => 'required|string|max:255',
                     'email' => 'required|email',
-                    'phone' => 'required|integer|size:11',
+                    'phone' => [
+                        'required',
+                        'regex:/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\d{8}$/',
+                    ],
                     'avatar' => 'required|url',
-                    'gender' => 'required|integer|size:1',
+                    'gender' => 'required|integer|max:2',
                     'city' => 'required|string|max:30',
                     'province' => 'required|string|max:30',
                     'country' => 'required|string|max:30',
@@ -41,9 +44,9 @@ class UserRequest extends FormRequest
                 return [
                     'name' => 'string|max:255',
                     'email' => 'email',
-                    'phone' => 'integer|size:11',
+                    'phone' => ['regex:/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\d{8}$/'],
                     'avatar' => 'url',
-                    'gender' => 'integer|size:1',
+                    'gender' => 'integer|max:2',
                     'city' => 'string|max:30',
                     'province' => 'string|max:30',
                     'country' => 'string|max:30',
@@ -59,13 +62,5 @@ class UserRequest extends FormRequest
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'name.unique' => '用户名已被占用，请重新填写',
-            'name.regex' => '用户名只支持英文、数字、横杆和下划线。',
-            'name.between' => '用户名必须介于 3 - 25 个字符之间。',
-            'name.required' => '用户名不能为空。',
-        ];
-    }
+
 }

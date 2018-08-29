@@ -17,7 +17,6 @@ class UsersController extends Controller
     public function update(UserRequest $request)
     {
         $return = ['status'=>200,'msg'=>'success','data'=>[]];
-        return $this->response->array($request);
         //事务开始
         DB::beginTransaction();
         try{
