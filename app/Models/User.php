@@ -12,9 +12,15 @@ class User extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'phone', 'email', 'password', 'introduction', 'avatar',
-    ];
+//    protected $fillable = [
+//        'name', 'phone', 'email', 'password', 'introduction', 'avatar',
+//    ];
+    /**
+     * 不可被批量赋值的属性。
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -22,7 +28,7 @@ class User extends Model
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
     ];
 
     public function setPasswordAttribute($value)
