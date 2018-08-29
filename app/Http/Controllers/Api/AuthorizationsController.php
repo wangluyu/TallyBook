@@ -25,7 +25,7 @@ class AuthorizationsController extends Controller
             $session_key = $result['session_key'];
             // 通过 openid 检索users表，如果不存在则创建
             $user = User::firstOrCreate(['open_id' => $open_id]);
-            if (!empty($user['id'])) {
+            if (empty($user['id'])) {
                 throw new \Exception("user info error");
             }
             //加密session
