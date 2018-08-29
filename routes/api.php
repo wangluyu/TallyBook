@@ -29,7 +29,7 @@ $api->version('v1', [
     $api->get('test', 'TestController@test')
         ->name('api.test.test');
     //注册
-    $api->post('user', 'UsersController@store')
+    $api->post('users', 'UsersController@store')
         ->name('api.user.store');
 
     $api->group(['middleware' => ['auth.wechat']], function ($api) {
