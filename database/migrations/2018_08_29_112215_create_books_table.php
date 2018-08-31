@@ -18,10 +18,14 @@ class CreateBooksTable extends Migration
             $table->increments('id');
             //book_title	账本名称	varchar (255)
             $table->string('name')->default('喵旅账本');
+            //旅行地点
+            $table->string('location')->nullable();
             //status	状态 1可用 0不可用	tinyint (1)
             $table->tinyInteger('status')->default(1)->comment('状态 1可用 0不可用');
-            //end_timestamp	预计结束时间（时间戳）	timestamp
-            $table->timestamp('end_timestamp');
+            //旅行开始时间
+            $table->date('start')->nullable();
+            //旅行结束时间
+            $table->date('end')->nullable();
             $table->timestamps();
         });
     }

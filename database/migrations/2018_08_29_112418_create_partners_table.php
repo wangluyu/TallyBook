@@ -16,8 +16,8 @@ class CreatePartnersTable extends Migration
         Schema::create('partners', function (Blueprint $table) {
             //partner_id	参与人id	int (11)
             $table->increments('id')->comment('参与人id');
-            //book_id	账本id	int (11)
-            $table->integer('book_id')->comment('账本id');
+            //user_id	添加参与人的用户id	int (11)
+            $table->integer('user_id')->comment('添加参与人的用户id');
             //partner_name	参与人称呼	varchar (16)
             $table->string('name')->comment('参与人称呼');
             //rate	付款比例	int (2)

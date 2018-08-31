@@ -13,7 +13,7 @@ class CreateUserBookTable extends Migration
      */
     public function up()
     {
-        Schema::create('userBook', function (Blueprint $table) {
+        Schema::create('user_books', function (Blueprint $table) {
             //user_id	用户id	int (11)
             $table->integer('user_id')->comment('用户id');
             //book_id	账本id	int (11)
@@ -31,6 +31,6 @@ class CreateUserBookTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('userBook');
+        Schema::dropIfExists('user_books');
     }
 }

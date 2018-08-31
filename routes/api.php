@@ -26,20 +26,22 @@ $api->version('v1', [
     $api->post('verificationCodes', 'VerificationCodesController@store')
         ->name('api.verificationCodes.store');
 
-    $api->get('test', 'TestController@test')
-        ->name('api.test.test');
-    //注册
-    $api->post('users', 'UsersController@store')
-        ->name('api.user.store');
-
     $api->group(['middleware' => ['auth.wechat']], function ($api) {
         //测试用
-        $api->get('authtest', 'TestController@test')
+        $api->get('test', 'TestController@test')
             ->name('api.test.test');
 
         // 编辑用户信息
         $api->put('user', 'UsersController@update')
             ->name('api.user.update');
+
+        //添加账本
+        $api->post('book', 'BookController@store')
+            ->name('api.book.store');
+
+        //添加账目
+        $api->post('account', 'AccountController@store')
+            ->name('api.account.store');
     });
 
 });

@@ -10,7 +10,7 @@ class TestController extends Controller
     public function test(Request $request)
     {
         if(!empty($request)){
-            var_dump($request);
+            echo "BOaaaa";
         }else {
             echo "BO";
         }
