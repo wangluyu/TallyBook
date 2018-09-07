@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Book extends BaseModel
+class Book extends Model
 {
     /**
      * 不可被批量赋值的属性。

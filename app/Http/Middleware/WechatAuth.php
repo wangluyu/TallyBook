@@ -8,8 +8,9 @@ use App\Models\User;
 use Closure;
 use Illuminate\Support\Facades\Redis;
 
-class Auth extends Controller
+class WechatAuth extends Controller
 {
+    public $user_id = 0;
     /**
      * Handle an incoming request.
      *
@@ -20,6 +21,7 @@ class Auth extends Controller
     public function handle($request, Closure $next)
     {
         //test
+        $this->user_id = 1;
         $request['user_id'] = 1;
         return $next($request);
         $session = $_SERVER['HTTP_SESSION'] ?? 0;

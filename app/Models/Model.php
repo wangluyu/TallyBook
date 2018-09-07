@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Support\Facades\DB;
 
-class BaseModel extends Model
+class Model extends BaseModel
 {
     /**
      * @desc 添加多条

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Partner extends BaseModel
+class Partner extends Model
 {
     /**
      * 不可被批量赋值的属性。
@@ -11,15 +11,22 @@ class Partner extends BaseModel
      */
     protected $guarded = [];
 
-    public function getIdByUser(int $user_id):array
+    /**
+     * @desc 根据user_id获取['id'=>['name'=>'xxx','status'],.....]
+     * @param int $user_id
+     * @return array
+     */
+    public function getByUser(int $user_id):array
     {
-        $ids = [];
-        $partners = self::where('user_id', $user_id)
+        $return = [];
+        $partner = self::where('user_id', $user_id)
             ->orderBy('id', 'desc')
             ->get()->toArray();
-        if(!empty($partners)) {
-            $ids = array_column($partners, 'id');
+        if(!empty($partner)) {
+            foreach ($partner as $p) {
+                $return[$p['id']] = $p;
+            }
         }
-        return $ids;
+        return $return;
     }
 }

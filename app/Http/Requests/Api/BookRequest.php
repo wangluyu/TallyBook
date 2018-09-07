@@ -23,18 +23,25 @@ class BookRequest extends FormRequest
      */
     public function rules()
     {
+        $rules = [
+            'location' => 'string|max:255',
+            'start' => 'nullable|date',
+            'end' => 'nullable|date',
+        ];
         switch ($this->method()){
             case 'POST':
-                return[
-                    'name' => 'required|string|max:255',
-                    'location' => 'string|max:255',
-                    'partners' => 'string|max:255',
-                    'start' => 'nullable|date',
-                    'end' => 'nullable|date',
-                ];
+                $rules['name'] = 'required|string|max:255';
+                break;
+            case 'PUT':
+                $rules['name'] = 'string|max:255';
+                $rules['id'] = 'required|integer';
+                break;
+            case 'DELETE':
+                $rules = ['id'  =>  'required|integer'];
                 break;
             default:
                 return[];
         }
+        return $rules;
     }
 }

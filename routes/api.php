@@ -26,6 +26,7 @@ $api->version('v1', [
     $api->post('verificationCodes', 'VerificationCodesController@store')
         ->name('api.verificationCodes.store');
 
+    //需要登录后的操作
     $api->group(['middleware' => ['auth.wechat']], function ($api) {
         //测试用
         $api->get('test', 'TestController@test')
@@ -42,6 +43,19 @@ $api->version('v1', [
         //添加账目
         $api->post('account', 'AccountController@store')
             ->name('api.account.store');
+
+        //需要验证用户账本权限的操作
+        $api->group(['middleware' => ['auth.book']], function ($api) {
+            //修改账本信息
+            $api->put('book', 'BookController@update')
+                ->name('api.book.update');
+            //删除账本
+            $api->delete('book', 'BookController@delete')
+                ->name('api.book.delete');
+            //添加参与人
+            $api->put('partner_book', 'PartnerBookController@update')
+                ->name('api.partner_book.update');
+        });
     });
 
 });

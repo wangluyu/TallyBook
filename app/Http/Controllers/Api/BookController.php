@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\BookRequest;
+use App\Models\Account;
 use App\Models\Book;
+use App\Models\Fund;
 use App\Models\Partner;
 use App\Models\PartnerBook;
 use App\Models\UserBook;
@@ -12,54 +14,85 @@ use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
+    private $book_id = 0;
+    /**
+     * @desc 创建账本
+     * @param BookRequest $request
+     * @return mixed
+     */
     public function store(BookRequest $request)
     {
         $return = ['status'=>200,'msg'=>'success','data'=>[]];
         //事务开始
         DB::beginTransaction();
         try{
-            $user_id = $request->user_id;
-            $partnerStr = $request->partners ?? '';
-
             //新建账本
             $booke_attributes = $request->only(['name', 'location', 'start', 'end']);
             $book = Book::create($booke_attributes);
+            $this->book_id = $book['id'];
 
             //关联账本与用户
-            $user_book_attributes = ['user_id'=>$user_id,'book_id'=>$book['id']];
+            $user_book_attributes = ['user_id'=>$this->user_id,'book_id'=>$this->book_id];
             $user_book = UserBook::create($user_book_attributes);
 
-            //添加成员
-            if (!empty($partnerStr)) {
-                //查找该用户所有的成员
-                $partner_model = new Partner();
-                $partner_ids_belongs_user = $partner_model->getIdByUser($user_id);
-                $partnersArr = explode(',', $partnerStr);
-                $partner_attributes = [];
-                $partner_book_attributes = [];
-                foreach ($partnersArr as $p) {
-                    if(is_numeric($p)) {
-                        //如果partner_id属于用户
-                        if(in_array($p,$partner_ids_belongs_user)) {
-                            //需要插入partner_book的数据
-                            $partner_book_attributes[] = ['book_id'=>$book['id'],'partner_id'=>$p];
-                        }
-                    }else {
-                        //需要新增的成员
-                        $partner_attributes[] = ['user_id'=>$user_id,'name'=>$p];
-                    }
-                }
-                //新增成员
-                $partners = $partner_model->createBatch($partner_attributes);
-                //将新增的成员与账本关联
-                foreach ($partners as $p){
-                    $partner_book_attributes[] = ['book_id'=>$book['id'],'partner_id'=>$p];
-                }
-                $partner_book_model = new PartnerBook();
-                $partner_book = $partner_book_model->createBatch($partner_book_attributes);
-            }
-            $return['data'] = $book['id'];
+            $return['data'] = $this->book_id;
 
+            //提交事务
+            DB::commit();
+        }catch (\Exception $e) {
+            //回滚
+            DB::rollBack();
+            $return['status'] = 400;
+            $return['msg'] = $e->getMessage();
+        }
+        return $this->response->array($return);
+    }
+
+    /**
+     * @desc 更新账本信息
+     * @param BookRequest $request
+     * @return mixed
+     */
+    public function update(BookRequest $request)
+    {
+        $return = ['status'=>200,'msg'=>'success','data'=>[]];
+        //事务开始
+        DB::beginTransaction();
+        try{
+            $this->book_id = $request->id;
+            //更新账本
+            $booke_attributes = $request->only(['name', 'location', 'start', 'end']);
+            $book = Book::where('id', $this->book_id)->update($booke_attributes);
+
+            $return['data'] = $this->book_id;
+
+            //提交事务
+            DB::commit();
+        }catch (\Exception $e) {
+            //回滚
+            DB::rollBack();
+            $return['status'] = 400;
+            $return['msg'] = $e->getMessage();
+        }
+        return $this->response->array($return);
+    }
+
+    public function delete(BookRequest $request)
+    {
+        $return = ['status'=>200,'msg'=>'success','data'=>[]];
+        $this->book_id = $request->id;
+        DB::beginTransaction();
+        try{
+            //删除账本
+            Book::destroy($this->book_id);
+            //删除用户与账本关联
+            UserBook::where('book_id',$this->book_id)->delete();
+            //删除成员与账本关联
+            PartnerBook::where('book_id',$this->book_id)->delete();
+            //删除账目与账本关联
+            Account::where('book_id',$this->book_id)->delete();
+            //删除款项与账本关联
+            Fund::where('book_id',$this->book_id)->delete();
             //提交事务
             DB::commit();
         }catch (\Exception $e) {

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Account extends Model
+class Tag extends Model
 {
     /**
      * 不可被批量赋值的属性。
