@@ -53,8 +53,8 @@ $api->version('v1', [
             $api->delete('book', 'BookController@delete')
                 ->name('api.book.delete');
             //添加参与人
-            $api->put('partner_book', 'PartnerBookController@update')
-                ->name('api.partner_book.update');
+            $api->post('partner_book', 'PartnerBookController@store')
+                ->name('api.partner_book.store');
         });
     });
 

@@ -17,18 +17,18 @@ class PartnerBook extends Model
      * @param int $user_id
      * @param int $book_id
      */
-    public static function updatePartnerBookList(string $partnerStr, int $user_id, int $book_id)
+    public static function updatePartnerBookList(string $list, int $user_id, int $book_id)
     {
-        if (!empty($partnerStr) && !empty($user_id) && !empty($book_id)) {
+        if (!empty($list) && !empty($user_id) && !empty($book_id)) {
             $date = date('Y-m-d H:i:s');
             //查找该用户所有的成员
             $partner_model = new Partner();
             $partner_belongs_user = $partner_model->getByUser($user_id);
-            $partnersArr = explode(',', $partnerStr);
+            $partners = explode(',', $list);
             $new_partner_attributes = [];
             $update_partner_attributes = [];
             $partner_book_attributes = [];
-            foreach ($partnersArr as $p) {
+            foreach ($partners as $p) {
                 //不需要新增partner表
                 if(is_numeric($p)) {
                     //如果partner_id属于用户，并且是可用的
@@ -57,15 +57,21 @@ class PartnerBook extends Model
                 }
             }
             //新增成员
-            $new_partners = $partner_model->createBatch($new_partner_attributes);
+            if(!empty($new_partner_attributes)) {
+                $new_partners = $partner_model->createBatch($new_partner_attributes);
+            }
             //更新成员状态
-            $update_partners = $partner_model->update($update_partner_attributes);
+            if(!empty($update_partner_attributes)){
+                $update_partners = $partner_model->update($update_partner_attributes);
+            }
             //将新增的成员与账本关联
             foreach ($new_partners as $p){
                 $partner_book_attributes[] = ['book_id'=>$book_id,'partner_id'=>$p];
             }
             $partner_book_model = new PartnerBook();
-            $partner_book = $partner_book_model->createBatch($partner_book_attributes);
+            if(!empty($partner_book_attributes)){
+                $partner_book = $partner_book_model->createBatch($partner_book_attributes);
+            }
         }
     }
 }

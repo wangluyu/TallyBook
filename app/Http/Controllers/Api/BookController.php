@@ -6,10 +6,8 @@ use App\Http\Requests\Api\BookRequest;
 use App\Models\Account;
 use App\Models\Book;
 use App\Models\Fund;
-use App\Models\Partner;
 use App\Models\PartnerBook;
 use App\Models\UserBook;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
@@ -26,6 +24,7 @@ class BookController extends Controller
         //事务开始
         DB::beginTransaction();
         try{
+            throw new \Exception('test');
             //新建账本
             $booke_attributes = $request->only(['name', 'location', 'start', 'end']);
             $book = Book::create($booke_attributes);
@@ -34,6 +33,10 @@ class BookController extends Controller
             //关联账本与用户
             $user_book_attributes = ['user_id'=>$this->user_id,'book_id'=>$this->book_id];
             $user_book = UserBook::create($user_book_attributes);
+
+            //关联账本与成员
+            $partners = $request->partners;
+            PartnerBook::updatePartnerBookList($partners, $this->user_id, $this->book);
 
             $return['data'] = $this->book_id;
 

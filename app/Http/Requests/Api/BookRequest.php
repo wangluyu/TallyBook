@@ -31,6 +31,7 @@ class BookRequest extends FormRequest
         switch ($this->method()){
             case 'POST':
                 $rules['name'] = 'required|string|max:255';
+                $rules['partners'] = 'required|string|max:255';
                 break;
             case 'PUT':
                 $rules['name'] = 'string|max:255';
