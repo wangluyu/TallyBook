@@ -43,6 +43,18 @@ $api->version('v1', [
         //添加账目
         $api->post('account', 'AccountController@store')
             ->name('api.account.store');
+        //获取账目类型
+        $api->get('tags', 'TagController@get')
+            ->name('api.tag.get');
+        //添加账目类型
+        $api->post('tags', 'TagController@store')
+            ->name('api.tag.store');
+        //修改账目类型
+        $api->put('tags', 'TagController@update')
+            ->name('api.tag.update');
+        //删除账目类型
+        $api->delete('tags', 'TagController@delete')
+            ->name('api.tag.delete');
 
         //需要验证用户账本权限的操作
         $api->group(['middleware' => ['auth.book']], function ($api) {
@@ -55,7 +67,12 @@ $api->version('v1', [
             //添加参与人
             $api->post('partner_book', 'PartnerBookController@store')
                 ->name('api.partner_book.store');
+            //删除参与人
+            $api->delete('partner_book', 'PartnerBookController@delete')
+                ->name('api.partner_book.delete');
+            //检查是否有未付款项
+            $api->get('check_unpaid', 'FundController@unpaid')
+                ->name('api.fund.unpaid');
         });
     });
-
 });

@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PartnerBookRequest extends FormRequest
+class TagRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,21 @@ class PartnerBookRequest extends FormRequest
     public function rules()
     {
         switch($this->method()) {
-            case 'POST':
+            case "POST":
                 $rules = [
-                    'id' => 'required|integer',
-                    'partners' => 'string|nullable|max:255'
+                    'name' => 'required|string|max:255',
+                    'pid' => 'required|integer'
                 ];
                 break;
-            case 'DELETE':
+            case "PUT":
                 $rules = [
-                    'id' => 'required|integer',
-                    'partner_id' => 'required|integer'
+                    'name' => 'required|string|max:255',
+                    'id' => 'required|integer'
+                ];
+                break;
+            case "DELETE":
+                $rules = [
+                    'id' => 'required|integer'
                 ];
                 break;
             default:

@@ -29,7 +29,7 @@ class CreateFundsTable extends Migration
             //partner_id	款项所属人id
             $table->integer('partner_id')->comment('款项所属人id');
             //status	款项状态 1已结清 0 未结 2 未结完
-            $table->tinyInteger('status')->default(1)->comment('款项状态 1已结清 0 未结 2 未结完');
+            $table->tinyInteger('status')->default(0)->comment('款项状态 1已结清 0 未结 2 未结完');
             $table->timestamps();
         });
     }

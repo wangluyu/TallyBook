@@ -24,7 +24,6 @@ class BookController extends Controller
         //事务开始
         DB::beginTransaction();
         try{
-            throw new \Exception('test');
             //新建账本
             $booke_attributes = $request->only(['name', 'location', 'start', 'end']);
             $book = Book::create($booke_attributes);
@@ -36,7 +35,7 @@ class BookController extends Controller
 
             //关联账本与成员
             $partners = $request->partners;
-            PartnerBook::updatePartnerBookList($partners, $this->user_id, $this->book);
+            PartnerBook::updatePartnerBookList($partners, $this->user_id, $this->book_id);
 
             $return['data'] = $this->book_id;
 

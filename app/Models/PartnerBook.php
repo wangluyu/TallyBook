@@ -13,7 +13,7 @@ class PartnerBook extends Model
 
     /**
      * @desc 添加更新成员，关联账本与成员
-     * @param string $partnerStr
+     * @param string $list
      * @param int $user_id
      * @param int $book_id
      */
@@ -29,6 +29,7 @@ class PartnerBook extends Model
             $update_partner_attributes = [];
             $partner_book_attributes = [];
             foreach ($partners as $p) {
+                $p = trim($p);
                 //不需要新增partner表
                 if(is_numeric($p)) {
                     //如果partner_id属于用户，并且是可用的
