@@ -12,8 +12,11 @@ class Controller extends BaseController
 
     public $user_id = 0;
 
+    protected $return = [];
+
     public function __construct()
     {
+        $this->return = ['status'=>'200', 'msg'=>'success', 'data'=>array()];
         $this->middleware(function ($request, $next) {
             $this->user_id = $request->user_id;
             return $next($request);

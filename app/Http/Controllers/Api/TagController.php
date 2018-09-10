@@ -10,24 +10,28 @@ class TagController extends Controller
 {
     public function get()
     {
-        $return = ['status'=>'200', 'msg'=>'success', 'data'=>array()];
+        $return = $this->return;
         try{
             $where_in = [0, $this->user_id];
-            $tags = Tag::select('id', 'name', 'pid')->whereIn('user_id', $where_in)->where('status', 1)->get()->toArray();
+            $tags = Tag::select('id', 'name', 'pid')->whereIn('user_id', $where_in)->get()->toArray();
             $return['data'] = tree($tags);
         }catch (\Exception $e) {
             $return['status'] = 400;
+            $return['msg'] = $e->getMessage();
         }
-        return $return;
+        return $this->response->array($return);
     }
 
     public function store(TagRequest $request)
     {
-        $return = ['status'=>'200', 'msg'=>'success', 'data'=>array()];
+        $return = $this->return;
         //事务开始
         DB::beginTransaction();
         try{
             $attributes = $request->only(['name', 'pid']);
+            if(empty($this->user_id)){
+                throw new \Exception();
+            }
             $attributes['name'] = trim($attributes['name']);
             $attributes['user_id'] = $this->user_id;
             Tag::firstOrCreate($attributes);
@@ -38,12 +42,12 @@ class TagController extends Controller
             DB::rollBack();
             $return['status'] = 400;
         }
-        return $return;
+        return $this->response->array($return);
     }
 
     public function update(TagRequest $request)
     {
-        $return = ['status'=>'200', 'msg'=>'success', 'data'=>array()];
+        $return = $this->return;
         //事务开始
         DB::beginTransaction();
         try{
@@ -73,11 +77,32 @@ class TagController extends Controller
             DB::rollBack();
             $return['status'] = 400;
         }
-        return $return;
+        return $this->response->array($return);
     }
 
     public function delete(TagRequest $request)
     {
-
+        $return = $this->return;
+        //事务开始
+        DB::beginTransaction();
+        try{
+            $id = $request->id;
+            $where = [
+                'id'  =>  $id,
+                'user_id'   =>  $this->user_id
+            ];
+            if(Tag::where($where)->doesntExist()){
+                $return['msg'] = '无权限';
+                throw new \Exception();
+            }
+            Tag::destroy($id);
+            //提交事务
+            DB::commit();
+        }catch (\Exception $e) {
+            //回滚
+            DB::rollBack();
+            $return['status'] = 400;
+        }
+        return $this->response->array($return);
     }
 }
