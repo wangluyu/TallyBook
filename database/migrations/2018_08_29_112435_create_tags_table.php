@@ -22,6 +22,7 @@ class CreateTagsTable extends Migration
             $table->string('name')->comment('类型名称');
             //tag_parent_id	父id，对应tag_id，0表示一级	int (11)
             $table->integer('pid')->default(0)->comment('父id，对应tag_id，0表示一级	int (11)');
+            $table->tinyInteger('status')->default(1)->comment('状态 1可用 0不可用');
             $table->timestamps();
         });
     }

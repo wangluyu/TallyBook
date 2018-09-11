@@ -22,6 +22,8 @@ class CreateAccountsTable extends Migration
             $table->tinyInteger('status')->default(1)->comment('状态 1可用 0不可用');
             //tag	账目类型id	int (11)
             $table->integer('tag_id')->comment('账目类型id');
+            //amount 总金额
+            $table->decimal('amount',8,2)->comment('总金额');
             //note	备注
             $table->text('note')->comment('备注');
             //location	账目产生地点

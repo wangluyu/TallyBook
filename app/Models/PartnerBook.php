@@ -43,7 +43,7 @@ class PartnerBook extends Model
                         //如果需要新增的成员已存在
                         if($p == $pbu_value['name']){
                             $flag = true;
-                            $partner_book_attributes[$p] = ['book_id'=>$book_id,'partner_id'=>$p];
+                            $partner_book_attributes[$p] = ['book_id'=>$book_id,'partner_id'=>$pbu_id];
                             //并且状态是不可用
                             if($pbu_value['status'] == 0){
                                 $update_partner_attributes[$pbu_id] = ['status'=>1,'updated_time'=>$date];

@@ -23,13 +23,16 @@ class AccountRequest extends FormRequest
      */
     public function rules()
     {
-//        $method = explode('_',end(explode('/', $this->path())))[0];
         switch ($this->method()){
             case 'POST':
                 return[
-                    'name' => 'required|string|max:255',
-                    'location' => 'required|string|max:255',
-                    'partners' => 'required|string|max:255',
+                    'tag_id' => 'required|string|max:255',
+                    'amount'    =>  'required|digits',
+                    'paid'   =>  'required|array',
+                    'should_pay'   =>  'required|array',
+                    'note' => 'string|max:255',
+                    'location' => 'string|max:255',
+                    'timestamp' => 'string|max:255',
                 ];
                 break;
             default:

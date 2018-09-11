@@ -73,6 +73,9 @@ $api->version('v1', [
             //检查是否有未付款项
             $api->get('check_unpaid', 'FundController@unpaid')
                 ->name('api.fund.unpaid');
+            //添加账目
+            $api->post('account', 'AccountController@store')
+                ->name('api.account.store');
         });
     });
 });
