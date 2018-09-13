@@ -60,6 +60,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'auth.wechat'  => \App\Http\Middleware\WechatAuth::class,
-        'auth.book' => \App\Http\Middleware\BookAuth::class
+        'auth.book' => \App\Http\Middleware\BookAuth::class,
+        'auth.account' => \App\Http\Middleware\AccountAuth::class
     ];
 }

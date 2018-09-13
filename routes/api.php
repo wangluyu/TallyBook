@@ -77,5 +77,11 @@ $api->version('v1', [
             $api->post('account', 'AccountController@store')
                 ->name('api.account.store');
         });
+        //需要验证用户账目权限的操作
+        $api->group(['middleware' => ['auth.account']], function ($api) {
+            //删除账目
+            $api->delete('account', 'AccountController@delete')
+                ->name('api.account.delete');
+        });
     });
 });
