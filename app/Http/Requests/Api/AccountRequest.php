@@ -27,9 +27,8 @@ class AccountRequest extends FormRequest
             case 'POST':
                 return[
                     'tag_id' => 'required|string|max:255',
-                    'amount'    =>  'required|digits',
-                    'paid'   =>  'required|array',
-                    'should_pay'   =>  'required|array',
+                    'amount'    =>  'required',
+                    'pay'   =>  'required|array',
                     'note' => 'string|max:255',
                     'location' => 'string|max:255',
                     'timestamp' => 'string|max:255',
