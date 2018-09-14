@@ -61,7 +61,7 @@ class BookController extends Controller
         //事务开始
         DB::beginTransaction();
         try{
-            $this->book_id = $request->id;
+            $this->book_id = $request->book_id;
             //更新账本
             $booke_attributes = $request->only(['name', 'location', 'start', 'end']);
             $book = Book::where('id', $this->book_id)->update($booke_attributes);
@@ -82,7 +82,7 @@ class BookController extends Controller
     public function delete(BookRequest $request)
     {
         $return = ['status'=>200,'msg'=>'success','data'=>[]];
-        $this->book_id = $request->id;
+        $this->book_id = $request->book_id;
         DB::beginTransaction();
         try{
             //删除账本

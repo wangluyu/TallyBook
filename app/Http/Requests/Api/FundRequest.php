@@ -27,7 +27,7 @@ class FundRequest extends FormRequest
         $method = end($method);
         if (hash_equals('check_unpaid', $method)) {
             return [
-                'id' => 'required|integer',
+                'book_id' => 'required|integer',
                 'partner_id' => 'required|integer'
             ];
         }

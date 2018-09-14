@@ -26,7 +26,7 @@ class AccountRequest extends FormRequest
         switch ($this->method()){
             case 'POST':
                 return[
-                    'id'    =>  'required|integer',
+                    'book_id'    =>  'required|integer',
                     'tag_id' => 'required|integer|max:255',
                     'amount'    =>  'required',
                     'pay'   =>  'required|array',
@@ -37,8 +37,21 @@ class AccountRequest extends FormRequest
                 break;
             case 'DELETE':
                 return[
-                    'id'   =>  'required|integer',
+                    'account_id'   =>  'required|integer',
                     'force' =>  'string'
+                ];
+            case "UPDATE":
+                return[
+                    'account_id'    =>  'required|integer',
+                    'tag_id' => 'required|integer|max:255',
+                    'amount'    =>  'required',
+                    'pay'   =>  'required|array',
+                    'note' => 'string|max:255',
+                    'location' => 'string|max:255',
+                    'timestamp' => 'string|max:255',
+                    'new'   =>  'array',
+                    'delete'    =>  'array',
+                    'edit'  =>  'array'
                 ];
             default:
                 return[];

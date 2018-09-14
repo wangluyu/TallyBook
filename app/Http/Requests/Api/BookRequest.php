@@ -35,10 +35,10 @@ class BookRequest extends FormRequest
                 break;
             case 'PUT':
                 $rules['name'] = 'string|max:255';
-                $rules['id'] = 'required|integer';
+                $rules['book_id'] = 'required|integer';
                 break;
             case 'DELETE':
-                $rules = ['id'  =>  'required|integer'];
+                $rules = ['book_id'  =>  'required|integer'];
                 break;
             default:
                 return[];

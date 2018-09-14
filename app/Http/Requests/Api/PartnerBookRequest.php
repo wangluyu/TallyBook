@@ -26,13 +26,13 @@ class PartnerBookRequest extends FormRequest
         switch($this->method()) {
             case 'POST':
                 $rules = [
-                    'id' => 'required|integer',
+                    'book_id' => 'required|integer',
                     'partners' => 'string|nullable|max:255'
                 ];
                 break;
             case 'DELETE':
                 $rules = [
-                    'id' => 'required|integer',
+                    'book_id' => 'required|integer',
                     'partner_id' => 'required|integer'
                 ];
                 break;

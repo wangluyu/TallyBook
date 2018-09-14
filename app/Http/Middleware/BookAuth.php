@@ -18,7 +18,7 @@ class BookAuth extends Controller
     public function handle($request, Closure $next)
     {
         //查找账本是否属于该用户
-        $where = [['user_id', $request->user_id], ['book_id', $request->id], ['status', 1]];
+        $where = [['user_id', $request->user_id], ['book_id', $request->book_id], ['status', 1]];
         if(UserBook::where($where)->doesntExist()) {
             return $this->response->error('No Authorizations', 422);
         }

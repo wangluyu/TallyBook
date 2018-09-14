@@ -23,7 +23,7 @@ class PartnerBookController extends Controller
         //事务开始
         DB::beginTransaction();
         try{
-            $this->book_id = $request->id;
+            $this->book_id = $request->book_id;
             $partner = $request->partner;
             //更新账本与成员关联
             PartnerBook::updatePartnerBookList($partner, $this->user_id, $this->book_id);
@@ -48,7 +48,7 @@ class PartnerBookController extends Controller
         //事务开始
         DB::beginTransaction();
         try {
-            $book_id = $request->id;
+            $book_id = $request->book_id;
             $partner_id = $request->partner_id;
             $where = [
                 ['book_id', $book_id],

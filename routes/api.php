@@ -82,6 +82,9 @@ $api->version('v1', [
             //删除账目
             $api->delete('account', 'AccountController@delete')
                 ->name('api.account.delete');
+            //修改账目
+            $api->put('account', 'AccountController@update')
+                ->name('api.account.update');
         });
     });
 });
